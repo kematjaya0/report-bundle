@@ -26,7 +26,8 @@
         "phpoffice/phpspreadsheet": "^1.14",
         "symfony/dom-crawler": "^4.0|^5.0",
         "koolreport/core": "^4.7",
-        "koolreport/querybuilder": "^2.5"
+        "koolreport/querybuilder": "^2.5",
+        "symfony/config": "^4.0|^5.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.1",
