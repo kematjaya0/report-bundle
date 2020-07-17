@@ -5,30 +5,14 @@
     <services>
         <defaults public="false" />
         
-        
-        <!--<service id="Kematjaya\SaleBundle\Service\SaleService" class="Kematjaya\SaleBundle\Service\SaleService">
-            <argument type="service" id="kematjaya.sale_repo" />
-            <argument type="service" id="kematjaya.stock_service" />
-            <argument type="service" id="kematjaya.stock_card_service" />
-        </service> 
-        <service id="kematjaya.sale_service" alias="Kematjaya\SaleBundle\Service\SaleService" public="true"></service>
-        
-        <service id="Kematjaya\SaleBundle\EventSubscriber\SaleEventSubscriber" class="Kematjaya\SaleBundle\EventSubscriber\SaleEventSubscriber">
-            <argument type="service" id="kematjaya.sale_service" />
-            <tag name="doctrine.event_listener" event="onFlush"/>
-        </service>
-        <service id="kematjaya.sale_event_subscriber" alias="Kematjaya\SaleBundle\EventSubscriber\SaleEventSubscriber" public="true"/>
-        
-        <service id="Kematjaya\SaleBundle\EventSubscriber\SaleItemFormEventSubscriber" class="Kematjaya\SaleBundle\EventSubscriber\SaleItemFormEventSubscriber">
+        <service id="Kematjaya\ReportBundle\Builder\ExcelBuilder" class="Kematjaya\ReportBundle\Builder\ExcelBuilder">
             <argument type="service" id="translator" />
         </service>
-        <service id="Kematjaya\SaleBundle\EventSubscriber\SaleFormEventSubscriber" class="Kematjaya\SaleBundle\EventSubscriber\SaleFormEventSubscriber">
-            <argument type="service" id="property_info" />
-            <argument type="service" id="security.token_storage" />
+         <service id="kematjaya.excel_builder" alias="Kematjaya\ReportBundle\Builder\ExcelBuilder" public="true"></service>
+         
+        <service id="Kematjaya\ReportBundle\Helper\ReportHelper" class="Kematjaya\ReportBundle\Helper\ReportHelper">
+            <argument type="service" id="translator" />
+            <argument type="service" id="kematjaya.excel_builder" />
         </service>
-        
-        <service id="Kematjaya\SaleBundle\Form\Type\HiddenDateTimeType" class="Kematjaya\SaleBundle\Form\Type\HiddenDateTimeType">
-            <tag name="form.type"/>
-        </service>-->
     </services>
 </container>
