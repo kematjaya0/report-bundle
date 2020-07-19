@@ -7,6 +7,7 @@
         
         <service id="Kematjaya\ReportBundle\Reader\ExcelReader" class="Kematjaya\ReportBundle\Reader\ExcelReader">
             <argument type="service" id="parameter_bag" />
+            <argument type="service" id="service_container" />
         </service>
         <service id="kematjaya.excel_reader" alias="Kematjaya\ReportBundle\Reader\ExcelReader" public="true"></service>
         
