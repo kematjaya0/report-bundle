@@ -11,7 +11,7 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('kmj_report');
+        $treeBuilder = new TreeBuilder('report');
         $treeBuilder->getRootNode()
                 ->children()
                     ->arrayNode('import')

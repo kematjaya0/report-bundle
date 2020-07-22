@@ -20,7 +20,7 @@ class ExcelReader implements ReaderInterface
     
     public function __construct(ContainerBagInterface $containerBag, ContainerInterface $container) 
     {
-        $configs = $containerBag->get('kmj_report');
+        $configs = $containerBag->get('report');
         $this->fileSystem = new Filesystem();
         if(!$this->fileSystem->exists($configs['import']['document_path']))
         {
