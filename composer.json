@@ -20,18 +20,18 @@
         }
     },
     "require": {
-        "symfony/http-kernel": "^4.0|^5.0",
+        "symfony/http-kernel": "^4.0|^5.0|^5.1",
         "symfony/contracts": "^2.1",
-        "symfony/dependency-injection": "^4.0|^5.0",
+        "symfony/dependency-injection": "^4.0|^5.0|^5.1",
         "phpoffice/phpspreadsheet": "^1.14",
-        "symfony/dom-crawler": "^4.0|^5.0",
+        "symfony/dom-crawler": "^4.0|^5.0|^5.1",
         "koolreport/core": "^4.7",
         "koolreport/querybuilder": "^2.5",
-        "symfony/config": "^4.0|^5.0",
-        "symfony/filesystem": "^4.0|^5.0"
+        "symfony/config": "^4.0|^5.0|^5.1",
+        "symfony/filesystem": "^4.0|^5.0|^5.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.1",
-        "symfony/browser-kit": "^4.0|^5.0"
+        "symfony/browser-kit": "^4.0|^5.0|^5.1"
     }
 }
