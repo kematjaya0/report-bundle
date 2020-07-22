@@ -15,12 +15,13 @@ class ReportExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container) 
     {
-        $loader = new XmlFileLoader($container,
-            new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new XmlFileLoader(
+                $container,
+                new FileLocator(dirname(__DIR__).'/Resources/config')
+            );
         $loader->load('services.xml');
         
-        $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
-        $container->setParameter('kmj_report', $config);
+        $config = $this->processConfiguration(new Configuration(), $configs);
+        $container->setParameter($this->getAlias(), $config);
     }
 }

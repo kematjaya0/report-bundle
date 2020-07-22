@@ -15,10 +15,9 @@ class Configuration implements ConfigurationInterface
         $treeBuilder->getRootNode()
                 ->children()
                     ->arrayNode('import')
+                        ->addDefaultsIfNotSet()
                         ->children()
-                            ->scalarNode('document_path')
-                                ->defaultValue('%kernel.project_dir%')
-                            ->end()
+                            ->scalarNode('document_path')->defaultValue('%kernel.project_dir%')->end()
                         ->end()
                     ->end()
                 ->end();
