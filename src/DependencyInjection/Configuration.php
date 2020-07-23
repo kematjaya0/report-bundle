@@ -17,7 +17,7 @@ class Configuration implements ConfigurationInterface
                     ->arrayNode('import')
                         ->addDefaultsIfNotSet()
                         ->children()
-                            ->scalarNode('document_path')->defaultValue('%kernel.project_dir%')->end()
+                            ->scalarNode('document_path')->defaultValue('%kernel.project_dir%'.DIRECTORY_SEPARATOR.'docs'.DIRECTORY_SEPARATOR.'templates')->end()
                         ->end()
                     ->end()
                 ->end();
