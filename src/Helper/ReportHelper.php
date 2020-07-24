@@ -24,20 +24,21 @@ class ReportHelper
         return new $className(['translator' => $this->translator, 'filter' => $filters]);
     }
     
-    public function renderHTML(KoolReport $report):string
+    public function renderHTML(KoolReport $report, string $view = null, bool $return = true):string
     {
-        return $report->run()->render(true);
+        return $report->run()->render($view, $return);
     }
     
-    public function getTableContent(KoolReport $report):string
+    public function getTableContent(KoolReport $report, string $view = null):string
     {
-        $html = $this->renderHTML($report);
+        $html = $this->renderHTML($report, $view);
         $crawler = new Crawler($html);
         return sprintf('<table>%s</table>', $crawler->filter('table')->html());
     }
     
-    public function toExcel(KoolReport $report, string $fileName = 'report.xls')
+    public function toExcel(KoolReport $report, string $fileName = 'report.xls', string $view = null)
     {
-        return $this->excelBuilder->fromHtml($this->getTableContent($report), $fileName);
+        $table = $this->getTableContent($report, $view);
+        return $this->excelBuilder->fromHtml($table, $fileName);
     }
 }
