@@ -74,7 +74,15 @@ class ExcelReader implements ReaderInterface
                 {
                     continue;
                 }
-
+                
+                $checkIsNull = function ($input = array()){
+                    return empty(array_filter($input, function ($a) { return $a !== null;}));
+                };
+                if($checkIsNull($v))
+                {
+                    continue;
+                }
+                
                 $results->add($objectTransformer->fromArray($v));
             }
 
