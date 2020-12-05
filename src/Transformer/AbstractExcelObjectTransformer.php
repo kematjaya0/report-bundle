@@ -22,26 +22,54 @@ abstract class AbstractExcelObjectTransformer implements ExcelObjectTransformerI
     protected function checkConstraints(array $data):array
     {
         $columns = $this->getColumns();
-        $i = 0;
         foreach($columns as $k => $v)
         {
-            if(isset($v[self::CONSTRAINT_REQUIRED]) and $v[self::CONSTRAINT_REQUIRED] and !$data[$i])
+            if(!isset($v[self::KEY_FIELD]))
             {
-                throw new \Exception(sprintf('%s %s %s', $this->translator->trans('column'), $this->translator->trans($k), $this->translator->trans(self::CONSTRAINT_REQUIRED)));
+                throw new \Exception(sprintf('required key : %s', self::KEY_FIELD));
+            }
+            if(!isset($v[self::KEY_INDEX]))
+            {
+                throw new \Exception(sprintf('required key : %s', self::KEY_INDEX));
             }
             
-            if(isset($v[self::CONSTRAINT_REFERENCE_CLASS]))
+            $field  = $v[self::KEY_FIELD];
+            $index  = $v[self::KEY_INDEX];
+            $type   = (isset($v[self::KEY_TYPE])) ? $v[self::KEY_TYPE] : null;
+            switch($type)
             {
-                $referenceClass = $v[self::CONSTRAINT_REFERENCE_CLASS];
-                $class = $this->entityManager->getRepository($referenceClass)->findOneBy(['code' => $data[$i]]);
-                if($class and isset($v[self::CONSTRAINT_UNIQUE]) and $v[self::CONSTRAINT_UNIQUE])
+                case self::CONSTRAINT_TYPE_NUMBER:
+                    $data[$index] = (float) $data[$index];
+                    break;
+                default:
+                    break;
+            }
+            
+            $constraints = (isset($v[self::KEY_CONSTRAINT])) ? $v[self::KEY_CONSTRAINT] : [];
+            
+            if(isset($constraints[self::CONSTRAINT_REQUIRED]) and $constraints[self::CONSTRAINT_REQUIRED] and !$data[$index])
+            {
+                throw new \Exception(sprintf('%s %s %s', $this->translator->trans('column'), $this->translator->trans($field), $this->translator->trans(self::CONSTRAINT_REQUIRED)));
+            }
+            
+            if(isset($constraints[self::CONSTRAINT_REFERENCE_CLASS]))
+            {
+                if(!isset($constraints[self::CONSTRAINT_REFERENCE_FIELD]))
                 {
-                    throw new \Exception(sprintf('%s %s %s', $this->translator->trans($k), $data[$i], $this->translator->trans('already_exist')));
+                    throw new \Exception(sprintf('required "%s" constraint key', self::CONSTRAINT_REFERENCE_FIELD));
                 }
                 
-                $data[$i] = ($class) ? $class : $data[$i];
+                $referenceClass = $constraints[self::CONSTRAINT_REFERENCE_CLASS];
+                $referenceField = $constraints[self::CONSTRAINT_REFERENCE_FIELD];
+                
+                $class = $this->entityManager->getRepository($referenceClass)->findOneBy([$referenceField => $data[$index]]);
+                if($class and isset($constraints[self::CONSTRAINT_UNIQUE]) and $constraints[self::CONSTRAINT_UNIQUE])
+                {
+                    throw new \Exception(sprintf('%s %s %s', $this->translator->trans($field), $data[$index], $this->translator->trans('already_exist')));
+                }
+                
+                $data[$index] = ($class) ? $class : $data[$index];
             }
-            $i++;
         }
         
         return $data;
